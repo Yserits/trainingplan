@@ -3,8 +3,7 @@ name: Daily Fitness Sync
 on:
   # 1. 定时运行
   schedule:
-    # 每天 UTC 时间 22:00 运行
-    # 等于 北京时间 第二天早上 06:00
+    # 北京时间 第二天早上 06:00
     - cron: '0 22 * * *'
   
   # 2. 允许手动点击 "Run workflow" 按钮测试
@@ -30,7 +29,7 @@ jobs:
         run: |
           pip install -r requirements.txt
       
-      # 第四步：运行你的 main.py 脚本
+      # 第四步：运行 main.py 脚本
       - name: Run sync script
         # 把 Secrets 里的密码取出来给 Python 用
         env:

@@ -1,3 +1,3 @@
 requests
 pandas
-TODOIST_API
+todoist-api-python

@@ -23,8 +23,8 @@ def sync_fitness_plan():
     print("🚀 开始同步健身计划...")
     
     try:
-        # 读取 CSV
-        df = pd.read_csv(CSV_URL)
+        # on_bad_lines='skip' 意思是：遇到格式不对的行（比如第65行），直接跳过不报错
+        df = pd.read_csv(CSV_URL, on_bad_lines='skip')
         
         # 将表头所有的空格去掉，防止误判
         df.columns = df.columns.str.strip()

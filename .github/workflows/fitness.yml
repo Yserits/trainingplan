@@ -1,0 +1,38 @@
+name: Daily Fitness Sync
+
+on:
+  # 1. 定时运行
+  schedule:
+    # 每天 UTC 时间 22:00 运行
+    # 等于 北京时间 第二天早上 06:00
+    - cron: '0 22 * * *'
+  
+  # 2. 允许手动点击 "Run workflow" 按钮测试
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 第一步：把仓库代码拉取下来
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # 第二步：安装 Python 环境 (版本 3.9)
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      
+      # 第三步：安装 requirements.txt 里的工具包
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      # 第四步：运行你的 main.py 脚本
+      - name: Run sync script
+        # 把 Secrets 里的密码取出来给 Python 用
+        env:
+          TODOIST_API_TOKEN: ${{ secrets.TODOIST_API }}
+        run: python main.py

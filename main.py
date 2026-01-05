@@ -1,7 +1,7 @@
 import os
 import datetime
 import pandas as pd
-from todoist_api_python.api import TodoistAPI
+from TODOIST_API.api import TodoistAPI
 
 # ---------------- 配置区域 ----------------
 # 你的 CSV 链接 (确保是发布为 CSV 的链接)

@@ -5,7 +5,7 @@ from todoist_api_python.api import TodoistAPI
 
 # ---------------- 配置区域 ----------------
 # 你的 CSV 链接 (确保是发布为 CSV 的链接)
-CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKGGAzH4TH8kL-868ITJn-oJ5TubHVJasslgxXabdyDvCksIYeo92FtMchhBYggloM5r7SqH5BDgN4/pubhtml"
+CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKGGAzH4TH8kL-868ITJn-oJ5TubHVJasslgxXabdyDvCksIYeo92FtMchhBYggloM5r7SqH5BDgN4/pub?output=csv"
 TODOIST_TOKEN = os.environ.get("TODOIST_API_TOKEN")
 
 # 这里定义你的表格表头 (必须和你表格里的一模一样，区分大小写)

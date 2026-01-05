@@ -109,4 +109,4 @@ if __name__ == "__main__":
     if TODOIST_TOKEN:
         sync_fitness_plan()
     else:
-        print("❌ 请在 GitHub Secrets 里配置 TODOIST_API)
+        print("❌ 请在 GitHub Secrets 里配置 TODOIST_API")

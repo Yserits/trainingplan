@@ -9,7 +9,7 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKGGAzH4TH8kL-868ITJ
 TODOIST_TOKEN = os.environ.get("TODOIST_API_TOKEN")
 
 # 这里定义你的表格表头 (必须和你表格里的一模一样，区分大小写)
-# 你的表头: DATE, BREAKFAS, TLUNCH, DINNER, SUPPORT, TRAINING, KAL_GAP
+# 我的表头: DATE, BREAKFAS, TLUNCH, DINNER, SUPPORT, TRAINING, KAL_GAP
 COL_DATE = 'DATE'
 COL_BREAKFAST = 'BREAKFAST' 
 COL_LUNCH = 'LUNCH'        
@@ -23,7 +23,7 @@ def sync_fitness_plan():
     print("🚀 开始同步健身计划...")
     
     try:
-        # on_bad_lines='skip' 意思是：遇到格式不对的行（比如第65行），直接跳过不报错
+        # 不拘小节
         df = pd.read_csv(CSV_URL, on_bad_lines='skip')
         
         # 将表头所有的空格去掉，防止误判
@@ -47,7 +47,7 @@ def sync_fitness_plan():
     now = datetime.datetime.now()
     
     # 构造匹配关键词：例如今天是 1月5日，我们就找包含 "1月5日" 的单元格
-    # 这样可以忽略后面的 "（周三）"
+    # 这样可以忽略后面的 "例如：（周三）"
     date_keyword = f"{now.month}月{now.day}日"
     
     print(f"📅 今天的匹配关键词是: '{date_keyword}'")
@@ -57,7 +57,7 @@ def sync_fitness_plan():
     today_data = df.loc[df[COL_DATE].str.contains(date_keyword, na=False)]
 
     if today_data.empty:
-        print(f"😴 今天 ({date_keyword}) 表格里没写计划，或者格式不匹配，休息一天！")
+        print(f" 今天 ({date_keyword}) 表格里没写计划，或者格式不匹配！")
         return
     
     # 取出这一行数据
@@ -70,23 +70,23 @@ def sync_fitness_plan():
     # --- 组装任务 ---
     # 1. 早餐
     if COL_BREAKFAST in plan and pd.notna(plan[COL_BREAKFAST]):
-        tasks.append(f"🥣 早餐: {plan[COL_BREAKFAST]}")
+        tasks.append(f" 早餐: {plan[COL_BREAKFAST]}")
         
     # 2. 午餐
     if COL_LUNCH in plan and pd.notna(plan[COL_LUNCH]):
-        tasks.append(f"🍱 午餐: {plan[COL_LUNCH]}")
+        tasks.append(f" 午餐: {plan[COL_LUNCH]}")
         
     # 3. 晚餐
     if COL_DINNER in plan and pd.notna(plan[COL_DINNER]):
-        tasks.append(f"🍽️ 晚餐: {plan[COL_DINNER]}")
+        tasks.append(f" 晚餐: {plan[COL_DINNER]}")
 
     # 4. 补给/支持
     if COL_SUPPORT in plan and pd.notna(plan[COL_SUPPORT]):
-        tasks.append(f"💊 补给: {plan[COL_SUPPORT]}")
+        tasks.append(f"补给: {plan[COL_SUPPORT]}")
         
     # 5. 训练
     if COL_TRAINING in plan and pd.notna(plan[COL_TRAINING]):
-        tasks.append(f"💪 训练: {plan[COL_TRAINING]}")
+        tasks.append(f" 训练: {plan[COL_TRAINING]}")
     
     # 6. 热量缺口
     if COL_CALORIES in plan and pd.notna(plan[COL_CALORIES]):
